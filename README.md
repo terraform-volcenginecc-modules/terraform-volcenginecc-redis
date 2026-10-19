@@ -1,88 +1,97 @@
 # terraform-volcenginecc-redis
 
-Terraform Module scaffold for the VolcengineCC provider.
+## 1. Overview
 
-> Status: Scaffold only. The Terraform implementation for this repository is
-> not available yet, and this repository is not ready for production use.
+Terraform module for managing Volcengine REDIS resources with the `volcenginecc` provider. The caller owns provider authentication, region configuration, and external resources passed by ID.
 
-## Overview
+## 2. Usage
 
-This repository reserves the module name `volcengine/redis/volcenginecc`.
+```hcl
+module "redis" {
+  source  = "terraform-volcenginecc-modules/redis/volcenginecc"
+  version = "~> 1.0"
 
-The module is intended to provide a reusable Terraform abstraction for the
-`redis` scenario using the `volcengine/volcenginecc` provider.
+  # Set the required module inputs for your environment.
+}
+```
 
-Current scope:
+## 3. Examples
 
-- Repository and module scaffold only.
-- No Terraform resources or data sources are currently managed.
-- No production-readiness or real-cloud validation claim is made.
+- `basic`: independently runnable basic configuration.
+- `complete`: independently runnable complete configuration.
 
-## Usage
-
-The module implementation is not available yet. A runnable configuration will
-be added together with the first implementation release.
-
-Provider authentication and region configuration must be supplied by the
-caller. Do not commit credentials, access keys, secrets, Terraform state, or
-plan files.
-
-## Examples
-
-Examples will be added when the module implementation is available.
-
-Planned examples:
-
-- `examples/basic`
-- `examples/complete`
-
-## Requirements
+## 4. Requirements
 
 | Name | Version |
 |---|---|
-| Terraform | To be defined with the first implementation |
-| `volcengine/volcenginecc` | To be defined with the first implementation |
+| Terraform | `>= 1.5.7` |
+| OpenTofu | `>= 1.11.8` |
 
-## Providers
+## 5. Providers
 
 | Name | Source |
 |---|---|
 | `volcenginecc` | `volcengine/volcenginecc` |
 
-## Resources
+## 6. Resources
 
-No resources or data sources are currently managed.
+| Name | Description |
+|---|---|
+| `volcenginecc_redis_parameter_group` | Module-defined volcenginecc_redis_parameter_group. |
+| `volcenginecc_redis_instance` | Module-defined volcenginecc_redis_instance. |
+| `volcenginecc_redis_allow_list` | Module-defined volcenginecc_redis_allow_list. |
+| `volcenginecc_redis_account` | Module-defined volcenginecc_redis_account. |
 
-The resource inventory will be documented before the first release.
+## 7. Inputs
 
-## Inputs
+| Name | Description |
+|---|---|
+| `instance_name` | Module-defined instance_name. |
+| `vpc_id` | Module-defined vpc_id. |
+| `subnet_id` | Module-defined subnet_id. |
+| `availability_zones` | Module-defined availability_zones. |
+| `multi_az` | Module-defined multi_az. |
+| `engine_version` | Module-defined engine_version. |
+| `node_number` | Module-defined node_number. |
+| `sharded_cluster` | Module-defined sharded_cluster. |
+| `shard_number` | Module-defined shard_number. |
+| `shard_capacity_mib` | Module-defined shard_capacity_mib. |
+| `password` | Module-defined password. |
+| `no_auth_mode` | Module-defined no_auth_mode. |
+| `allow_list_ids` | Module-defined allow_list_ids. |
+| `allow_lists` | Module-defined allow_lists. |
+| `parameter_group_id` | Module-defined parameter_group_id. |
+| `parameter_group` | Module-defined parameter_group. |
+| `accounts` | Module-defined accounts. |
+| `charge_type` | Module-defined charge_type. |
+| `purchase_months` | Module-defined purchase_months. |
+| `auto_renew` | Module-defined auto_renew. |
+| `deletion_protection` | Module-defined deletion_protection. |
+| `continuous_backup` | Module-defined continuous_backup. |
+| `create_backup` | Module-defined create_backup. |
+| `port` | Module-defined port. |
+| `project_name` | Module-defined project_name. |
+| `reserve_additional_bandwidth` | Module-defined reserve_additional_bandwidth. |
+| `tags` | Module-defined tags. |
 
-No input variables are currently defined.
+## 8. Outputs
 
-All inputs will document their type, default value, required status,
-validation, ownership, and replacement behavior when implemented.
+| Name | Description |
+|---|---|
+| `instance_id` | Module-defined instance_id. |
+| `private_address` | Module-defined private_address. |
+| `private_port` | Module-defined private_port. |
+| `vip` | Module-defined vip. |
+| `private_connection` | Module-defined private_connection. |
+| `connection_addresses` | Module-defined connection_addresses. |
+| `status` | Module-defined status. |
+| `maintenance_time` | Module-defined maintenance_time. |
+| `allow_list_ids` | Module-defined allow_list_ids. |
+| `parameter_group_id` | Module-defined parameter_group_id. |
+| `account_names` | Module-defined account_names. |
 
-## Outputs
+## 9. Notes
 
-No outputs are currently defined.
-
-Outputs will document their exact semantics when implemented.
-
-## Notes
-
-- This repository is currently a scaffold and is not a publishable functional
-  module.
-- Real-cloud validation has not been performed.
-- Provider limitations and unsupported scenarios will be documented before
-  release.
-- Resource ownership, import behavior, replacement behavior, cost risks, and
-  cleanup procedures must be documented before the first release.
-
-## Security
-
-Please report security issues according to the [Security Policy](SECURITY.md).
-Do not disclose security vulnerabilities through public issues.
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+- Configure credentials using supported provider mechanisms; do not put access keys in module files.
+- Review replacement behavior and provider constraints before applying changes.
+- Run `terraform plan` after apply and confirm that the second plan has no changes.
